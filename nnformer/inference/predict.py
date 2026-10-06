@@ -97,9 +97,17 @@ def preprocess_multithreaded(trainer, list_of_lists, output_files, num_processes
         segs_from_prev_stage = [None] * len(list_of_lists)
 
     num_processes = min(len(list_of_lists), num_processes)
-
     classes = list(range(1, trainer.num_classes))
     assert isinstance(trainer, nnFormerTrainer) or isinstance(trainer, nnFormerTrainer_synapse)
+
+    if num_processes <= 1:
+        for i, l in enumerate(list_of_lists):
+            output_file = output_files[i]
+            print("preprocessing", output_file)
+            d, _, dct = trainer.preprocess_patient(l)
+            yield (output_file, (d, dct))
+        return
+
     q = Queue(1)
     processes = []
     for i in range(num_processes):

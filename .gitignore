@@ -1,0 +1,20 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Large binary dataset files and checkpoints
+DATASET/nnFormer_preprocessed/
+DATASET/nnFormer_trained_models/
+*.model
+*.model.pkl
+
+# IDEs
+.idea/
+.vscode/

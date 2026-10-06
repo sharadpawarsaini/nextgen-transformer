@@ -34,6 +34,7 @@ def split_4d(input_folder, num_processes=default_num_threads, overwrite_task_out
         "The input folder must be a valid Task folder from the Medical Segmentation Decathlon with at least the " \
         "imagesTr and labelsTr subfolders and the dataset.json file"
 
+    input_folder = input_folder.replace('\\', '/')
     while input_folder.endswith("/"):
         input_folder = input_folder[:-1]
 

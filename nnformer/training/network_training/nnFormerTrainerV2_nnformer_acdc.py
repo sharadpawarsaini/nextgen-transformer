@@ -46,7 +46,11 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
                  unpack_data=True, deterministic=True, fp16=False):
         super().__init__(plans_file, fold, output_folder, dataset_directory, batch_dice, stage, unpack_data,
                          deterministic, fp16)
-        self.max_num_epochs = 1000
+        self.max_num_epochs = int(os.environ.get('MAX_NUM_EPOCHS', 1000))
+        if 'NUM_BATCHES_PER_EPOCH' in os.environ:
+            self.num_batches_per_epoch = int(os.environ['NUM_BATCHES_PER_EPOCH'])
+        if 'NUM_VAL_BATCHES_PER_EPOCH' in os.environ:
+            self.num_val_batches_per_epoch = int(os.environ['NUM_VAL_BATCHES_PER_EPOCH'])
         self.initial_lr = 1e-2
         self.deep_supervision_scales = None
         self.ds_loss_weights = None
@@ -176,17 +180,21 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
                                 down_stride=self.down_stride,
                                 deep_supervision=self.deep_supervision)
         if self.load_pretrain_weight:
-            checkpoint = torch.load("/home/xychen/jsguo/weight/tumor_pretrain.model", map_location='cpu') # acdc and tumor use the same pretrain weight
-            ck={}
-            
-            for i in self.network.state_dict():
-                if i in checkpoint:
-                    print(i)
-                    ck.update({i:checkpoint[i]})
-                else:
-                    ck.update({i:self.network.state_dict()[i]})
-            self.network.load_state_dict(ck)
-            print('I am using the pre_train weight!!')
+            pretrain_weight = os.environ.get('PRETRAIN_WEIGHT', "/home/xychen/jsguo/weight/tumor_pretrain.model")
+            if os.path.isfile(pretrain_weight):
+                checkpoint = torch.load(pretrain_weight, map_location='cpu') # acdc and tumor use the same pretrain weight
+                ck={}
+                
+                for i in self.network.state_dict():
+                    if i in checkpoint:
+                        print(i)
+                        ck.update({i:checkpoint[i]})
+                    else:
+                        ck.update({i:self.network.state_dict()[i]})
+                    self.network.load_state_dict(ck)
+                print('I am using the pre_train weight!!')
+            else:
+                print('Pretrained weights not found at %s. Initializing from scratch.' % pretrain_weight)
         
      
         if torch.cuda.is_available():
@@ -328,9 +336,10 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
             # if the split file does not exist we need to create it
             if not isfile(splits_file):
                 self.print_to_log_file("Creating new 5-fold cross-validation split...")
-                splits = []
                 all_keys_sorted = np.sort(list(self.dataset.keys()))
-                kfold = KFold(n_splits=5, shuffle=True, random_state=12345)
+                splits = []
+                n_splits = max(2, min(5, len(all_keys_sorted)))
+                kfold = KFold(n_splits=n_splits, shuffle=True, random_state=12345)
                 for i, (train_idx, test_idx) in enumerate(kfold.split(all_keys_sorted)):
                     train_keys = np.array(all_keys_sorted)[train_idx]
                     test_keys = np.array(all_keys_sorted)[test_idx]
@@ -345,7 +354,7 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
                 self.print_to_log_file("The split file contains %d splits." % len(splits))
 
             self.print_to_log_file("Desired fold for training: %d" % self.fold)
-            splits[self.fold]['train']=np.array(['patient001_frame01', 'patient001_frame12', 'patient004_frame01',
+            acdc_hardcoded_tr = np.array(['patient001_frame01', 'patient001_frame12', 'patient004_frame01',
        'patient004_frame15', 'patient005_frame01', 'patient005_frame13',
        'patient006_frame01', 'patient006_frame16', 'patient007_frame01',
        'patient007_frame07', 'patient010_frame01', 'patient010_frame13',
@@ -392,13 +401,16 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
        'patient084_frame01', 'patient084_frame10', 'patient085_frame01',
        'patient085_frame09', 'patient086_frame01', 'patient086_frame08',
        'patient087_frame01', 'patient087_frame10'])
-            splits[self.fold]['val']=np.array(['patient089_frame01', 'patient089_frame10', 'patient090_frame04',
+            acdc_hardcoded_val = np.array(['patient089_frame01', 'patient089_frame10', 'patient090_frame04',
        'patient090_frame11', 'patient091_frame01', 'patient091_frame09',
        'patient093_frame01', 'patient093_frame14', 'patient094_frame01',
        'patient094_frame07', 'patient096_frame01', 'patient096_frame08',
        'patient097_frame01', 'patient097_frame11', 'patient098_frame01',
        'patient098_frame09', 'patient099_frame01', 'patient099_frame09',
        'patient100_frame01', 'patient100_frame13'])
+            if all(k in self.dataset for k in acdc_hardcoded_tr):
+                splits[self.fold]['train'] = acdc_hardcoded_tr
+                splits[self.fold]['val'] = acdc_hardcoded_val
             if self.fold < len(splits):
                 tr_keys = splits[self.fold]['train']
                 val_keys = splits[self.fold]['val']

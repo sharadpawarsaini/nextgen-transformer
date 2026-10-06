@@ -62,8 +62,9 @@ def restore_model(pkl_file, checkpoint=None, train=False, fp16=None,folder=None)
     update on 2022.6.23.
     For the model_best.model can be shared in different machines.
     '''
-    task=folder.split('/')[-2]
-    network = folder.split('/')[-3]
+    norm_folder = folder.replace('\\', '/')
+    task = norm_folder.split('/')[-2]
+    network = norm_folder.split('/')[-3]
     if network == '2d':
         plans_file = join(preprocessing_output_dir, task, default_plans_identifier + "_plans_2D.pkl")
     else:

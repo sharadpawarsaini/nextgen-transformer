@@ -13,6 +13,7 @@
 #    limitations under the License.
 
 from batchgenerators.dataloading import MultiThreadedAugmenter
+from batchgenerators.dataloading.single_threaded_augmenter import SingleThreadedAugmenter
 from batchgenerators.transforms import DataChannelSelectionTransform, SegChannelSelectionTransform, SpatialTransform, \
     GammaTransform, MirrorTransform, Compose
 from batchgenerators.transforms.color_transforms import BrightnessMultiplicativeTransform, \
@@ -147,7 +148,9 @@ def get_moreDA_augmentation(dataloader_train, dataloader_val, patch_size, params
     tr_transforms.append(NumpyToTensor(['data', 'target'], 'float'))
     tr_transforms = Compose(tr_transforms)
 
-    if use_nondetMultiThreadedAugmenter:
+    if params.get('num_threads', 1) <= 1:
+        batchgenerator_train = SingleThreadedAugmenter(dataloader_train, tr_transforms)
+    elif use_nondetMultiThreadedAugmenter:
         if NonDetMultiThreadedAugmenter is None:
             raise RuntimeError('NonDetMultiThreadedAugmenter is not yet available')
         batchgenerator_train = NonDetMultiThreadedAugmenter(dataloader_train, tr_transforms, params.get('num_threads'),
@@ -157,8 +160,6 @@ def get_moreDA_augmentation(dataloader_train, dataloader_val, patch_size, params
         batchgenerator_train = MultiThreadedAugmenter(dataloader_train, tr_transforms, params.get('num_threads'),
                                                       params.get("num_cached_per_thread"),
                                                       seeds=seeds_train, pin_memory=pin_memory)
-    # batchgenerator_train = SingleThreadedAugmenter(dataloader_train, tr_transforms)
-    # import IPython;IPython.embed()
 
     val_transforms = []
     val_transforms.append(RemoveLabelTransform(-1, 0))
@@ -186,7 +187,9 @@ def get_moreDA_augmentation(dataloader_train, dataloader_val, patch_size, params
     val_transforms.append(NumpyToTensor(['data', 'target'], 'float'))
     val_transforms = Compose(val_transforms)
 
-    if use_nondetMultiThreadedAugmenter:
+    if params.get('num_threads', 1) <= 1:
+        batchgenerator_val = SingleThreadedAugmenter(dataloader_val, val_transforms)
+    elif use_nondetMultiThreadedAugmenter:
         if NonDetMultiThreadedAugmenter is None:
             raise RuntimeError('NonDetMultiThreadedAugmenter is not yet available')
         batchgenerator_val = NonDetMultiThreadedAugmenter(dataloader_val, val_transforms,
@@ -198,7 +201,6 @@ def get_moreDA_augmentation(dataloader_train, dataloader_val, patch_size, params
                                                     max(params.get('num_threads') // 2, 1),
                                                     params.get("num_cached_per_thread"),
                                                     seeds=seeds_val, pin_memory=pin_memory)
-    # batchgenerator_val = SingleThreadedAugmenter(dataloader_val, val_transforms)
 
     return batchgenerator_train, batchgenerator_val
 

@@ -52,9 +52,13 @@ def get_default_configuration(network, task, network_trainer, plans_identifier=d
     else:
         Stage=0
     if task=='Task001_ACDC':
-        plans['plans_per_stage'][Stage]['batch_size']=4
-        plans['plans_per_stage'][Stage]['patch_size']=np.array([14,160,160])
-        pickle_file = open(plans_file,'wb')
+        import torch
+        if torch.cuda.is_available() and torch.cuda.get_device_properties(0).total_memory < 6 * 1024**3:
+            plans['plans_per_stage'][Stage]['batch_size'] = 1
+        else:
+            plans['plans_per_stage'][Stage]['batch_size'] = 4
+        plans['plans_per_stage'][Stage]['patch_size'] = np.array([14, 160, 160])
+        pickle_file = open(plans_file, 'wb')
         pickle.dump(plans, pickle_file)
         pickle_file.close()
 

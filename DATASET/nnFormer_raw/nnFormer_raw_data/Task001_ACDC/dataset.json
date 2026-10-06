@@ -1,0 +1,32 @@
+{
+    "name": "ACDC",
+    "description": "Automatic Cardiac Diagnosis Challenge Demo",
+    "tensorImageSize": "4D",
+    "reference": "https://www.creatis.insa-lyon.fr/Challenge/acdc/",
+    "licence": "see ACDC website",
+    "release": "1.0",
+    "modality": {
+        "0": "MRI"
+    },
+    "labels": {
+        "0": "background",
+        "1": "RV",
+        "2": "Myo",
+        "3": "LV"
+    },
+    "numTraining": 2,
+    "numTest": 1,
+    "training": [
+        {
+            "image": "./imagesTr/patient001.nii.gz",
+            "label": "./labelsTr/patient001.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient002.nii.gz",
+            "label": "./labelsTr/patient002.nii.gz"
+        }
+    ],
+    "test": [
+        "./imagesTs/patient003.nii.gz"
+    ]
+}

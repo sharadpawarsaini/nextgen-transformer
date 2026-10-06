@@ -45,6 +45,10 @@ from torch.optim import lr_scheduler
 matplotlib.use("agg")
 
 
+def identity_op(x):
+    return x
+
+
 class nnFormerTrainer(NetworkTrainer):
     def __init__(self, plans_file, fold, output_folder=None, dataset_directory=None, batch_dice=True, stage=None,
                  unpack_data=True, deterministic=True, fp16=False):
@@ -257,7 +261,7 @@ class nnFormerTrainer(NetworkTrainer):
         self.network = Generic_UNet(self.num_input_channels, self.base_num_features, self.num_classes, net_numpool,
                                     self.conv_per_stage, 2, conv_op, norm_op, norm_op_kwargs, dropout_op,
                                     dropout_op_kwargs,
-                                    net_nonlin, net_nonlin_kwargs, False, False, lambda x: x, InitWeights_He(1e-2),
+                                    net_nonlin, net_nonlin_kwargs, False, False, identity_op, InitWeights_He(1e-2),
                                     self.net_num_pool_op_kernel_sizes, self.net_conv_kernel_sizes, False, True, True)
         self.network.inference_apply_nonlin = softmax_helper
 

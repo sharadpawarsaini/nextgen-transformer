@@ -886,6 +886,10 @@ class final_patch_expanding(nn.Module):
 
 
                                          
+def identity_op(x):
+    return x
+
+
 class nnFormer(SegmentationNetwork):
 
     def __init__(self, crop_size=[64,128,128],
@@ -911,7 +915,7 @@ class nnFormer(SegmentationNetwork):
         self.upscale_logits_ops = []
      
         
-        self.upscale_logits_ops.append(lambda x: x)
+        self.upscale_logits_ops.append(identity_op)
         
         embed_dim=embedding_dim
         depths=depths
