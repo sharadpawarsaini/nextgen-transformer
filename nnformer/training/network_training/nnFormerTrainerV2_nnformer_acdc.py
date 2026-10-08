@@ -77,7 +77,7 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
         self.conv_op=nn.Conv3d
         
         self.embedding_dim=96
-        self.depths=[2, 2, 2, 2]
+        self.depths=[3, 3, 3, 3]
         self.num_heads=[3, 6, 12, 24]
         self.embedding_patch_size=[1,4,4]
         self.window_size=[[3,5,5],[3,5,5],[7,10,10],[3,5,5]]
