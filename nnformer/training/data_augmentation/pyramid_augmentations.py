@@ -16,7 +16,14 @@ from copy import deepcopy
 from skimage.morphology import label, ball
 from skimage.morphology.binary import binary_erosion, binary_dilation, binary_closing, binary_opening
 import numpy as np
-from batchgenerators.transforms import AbstractTransform
+try:
+    from batchgenerators.transforms.channel_selection_transforms import DataChannelSelectionTransform, SegChannelSelectionTransform
+    from batchgenerators.transforms.spatial_transforms import SpatialTransform, MirrorTransform
+    from batchgenerators.transforms.color_transforms import GammaTransform
+    from batchgenerators.transforms.abstract_transforms import Compose, AbstractTransform
+except ImportError:
+    from batchgenerators.transforms import DataChannelSelectionTransform, SegChannelSelectionTransform, SpatialTransform, GammaTransform, MirrorTransform, Compose, AbstractTransform
+
 
 
 class RemoveRandomConnectedComponentFromOneHotEncodingTransform(AbstractTransform):

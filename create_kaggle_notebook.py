@@ -85,7 +85,7 @@ notebook = {
                 "if PROJECT_DIR not in sys.path:\n",
                 "    sys.path.insert(0, PROJECT_DIR)\n",
                 "\n",
-                "# Dynamic runtime patch for batchgenerators namespace\n",
+                "# Dynamic runtime patch for ALL batchgenerators.transforms and dataloading namespaces\n",
                 "import batchgenerators.dataloading\n",
                 "if not hasattr(batchgenerators.dataloading, 'MultiThreadedAugmenter'):\n",
                 "    try:\n",
@@ -94,7 +94,23 @@ notebook = {
                 "    except Exception:\n",
                 "        pass\n",
                 "\n",
-                "print('✅ Repository cloned and sys.path configured successfully!')"
+                "import batchgenerators.transforms\n",
+                "import batchgenerators.transforms.channel_selection_transforms\n",
+                "import batchgenerators.transforms.spatial_transforms\n",
+                "import batchgenerators.transforms.color_transforms\n",
+                "import batchgenerators.transforms.abstract_transforms\n",
+                "\n",
+                "for submod in [\n",
+                "    batchgenerators.transforms.channel_selection_transforms,\n",
+                "    batchgenerators.transforms.spatial_transforms,\n",
+                "    batchgenerators.transforms.color_transforms,\n",
+                "    batchgenerators.transforms.abstract_transforms,\n",
+                "]:\n",
+                "    for attr in dir(submod):\n",
+                "        if not attr.startswith('_') and not hasattr(batchgenerators.transforms, attr):\n",
+                "            setattr(batchgenerators.transforms, attr, getattr(submod, attr))\n",
+                "\n",
+                "print('✅ Repository cloned and batchgenerators namespace patched successfully!')"
             ]
         },
         {

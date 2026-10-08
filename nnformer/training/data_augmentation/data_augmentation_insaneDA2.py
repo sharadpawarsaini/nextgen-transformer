@@ -30,8 +30,14 @@ except ImportError:
                 def __next__(self):
                     item = next(self.generator)
                     return self.transform(**item) if callable(self.transform) else item
-from batchgenerators.transforms import DataChannelSelectionTransform, SegChannelSelectionTransform, \
-    GammaTransform, MirrorTransform, Compose
+try:
+    from batchgenerators.transforms.channel_selection_transforms import DataChannelSelectionTransform, SegChannelSelectionTransform
+    from batchgenerators.transforms.spatial_transforms import SpatialTransform, MirrorTransform
+    from batchgenerators.transforms.color_transforms import GammaTransform
+    from batchgenerators.transforms.abstract_transforms import Compose, AbstractTransform
+except ImportError:
+    from batchgenerators.transforms import DataChannelSelectionTransform, SegChannelSelectionTransform, SpatialTransform, GammaTransform, MirrorTransform, Compose, AbstractTransform
+
 from batchgenerators.transforms.color_transforms import BrightnessMultiplicativeTransform, \
     ContrastAugmentationTransform, BrightnessTransform
 from batchgenerators.transforms.noise_transforms import GaussianNoiseTransform, GaussianBlurTransform

@@ -15,7 +15,14 @@
 
 import torch
 from batchgenerators.augmentations.utils import convert_seg_image_to_one_hot_encoding_batched, resize_segmentation
-from batchgenerators.transforms import AbstractTransform
+try:
+    from batchgenerators.transforms.channel_selection_transforms import DataChannelSelectionTransform, SegChannelSelectionTransform
+    from batchgenerators.transforms.spatial_transforms import SpatialTransform, MirrorTransform
+    from batchgenerators.transforms.color_transforms import GammaTransform
+    from batchgenerators.transforms.abstract_transforms import Compose, AbstractTransform
+except ImportError:
+    from batchgenerators.transforms import DataChannelSelectionTransform, SegChannelSelectionTransform, SpatialTransform, GammaTransform, MirrorTransform, Compose, AbstractTransform
+
 from torch.nn.functional import avg_pool2d, avg_pool3d
 import numpy as np
 
