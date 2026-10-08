@@ -68,7 +68,10 @@ notebook = {
                 "!git clone https://github.com/sharadpawarsaini/nextgen-transformer.git /kaggle/working/nextgen-transformer || true\n",
                 "%cd /kaggle/working/nextgen-transformer\n",
                 "\n",
-                "!pip install -q batchgenerators SimpleITK nibabel timm einops scipy matplotlib scikit-learn reportlab medpy\n",
+                "# Pull latest fixes from repository\n",
+                "!git pull origin main\n",
+                "\n",
+                "!pip install -q batchgenerators==0.23 SimpleITK nibabel timm einops scipy matplotlib scikit-learn reportlab medpy\n",
                 "!pip install -e . --no-build-isolation\n",
                 "print('Dependencies installed successfully!')"
             ]
@@ -321,4 +324,4 @@ out_path = r"c:\Users\shara\Desktop\nnFormer\nnFormer_Kaggle_Notebook.ipynb"
 with open(out_path, "w", encoding="utf-8") as f:
     json.dump(notebook, f, indent=2)
 
-print(f"Notebook generated successfully at: {out_path}")
+print(f"Notebook regenerated successfully at: {out_path}")

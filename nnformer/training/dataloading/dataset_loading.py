@@ -15,7 +15,10 @@
 from collections import OrderedDict
 from batchgenerators.augmentations.utils import random_crop_2D_image_batched, pad_nd_image
 import numpy as np
-from batchgenerators.dataloading import SlimDataLoaderBase
+try:
+    from batchgenerators.dataloading.data_loader import SlimDataLoaderBase
+except ImportError:
+    from batchgenerators.dataloading import SlimDataLoaderBase
 from multiprocessing import Pool
 
 from nnformer.configuration import default_num_threads
