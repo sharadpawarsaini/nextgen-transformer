@@ -41,18 +41,21 @@ notebook = {
                 "\n",
                 "# Configure nnFormer Environment Paths\n",
                 "BASE_DIR = '/kaggle/working'\n",
+                "PROJECT_DIR = os.path.join(BASE_DIR, 'nextgen-transformer')\n",
                 "DATASET_DIR = os.path.join(BASE_DIR, 'DATASET')\n",
                 "\n",
+                "os.environ['PYTHONPATH'] = PROJECT_DIR + ':' + os.environ.get('PYTHONPATH', '')\n",
                 "os.environ['nnFormer_raw_data_base'] = os.path.join(DATASET_DIR, 'nnFormer_raw')\n",
                 "os.environ['nnFormer_preprocessed'] = os.path.join(DATASET_DIR, 'nnFormer_preprocessed')\n",
                 "os.environ['RESULTS_FOLDER'] = os.path.join(DATASET_DIR, 'nnFormer_trained_models')\n",
                 "os.environ['nnFormer_def_n_proc'] = '2'\n",
                 "os.environ['nnFormer_n_proc_DA'] = '1'\n",
-                "os.environ['MAX_NUM_EPOCHS'] = '100'  # Epochs set to 100\n",
+                "os.environ['MAX_NUM_EPOCHS'] = '100'\n",
                 "os.environ['NUM_BATCHES_PER_EPOCH'] = '10'\n",
                 "os.environ['NUM_VAL_BATCHES_PER_EPOCH'] = '5'\n",
                 "\n",
                 "print('\\n--- Configured Paths ---')\n",
+                "print('PYTHONPATH:', os.environ['PYTHONPATH'])\n",
                 "print('nnFormer_raw_data_base:', os.environ['nnFormer_raw_data_base'])\n",
                 "print('nnFormer_preprocessed:', os.environ['nnFormer_preprocessed'])\n",
                 "print('RESULTS_FOLDER:', os.environ['RESULTS_FOLDER'])"
@@ -73,6 +76,11 @@ notebook = {
                 "!pip install --upgrade --force-reinstall -q batchgenerators==0.23 SimpleITK nibabel timm einops scipy matplotlib scikit-learn reportlab medpy\n",
                 "!pip install -e . --no-build-isolation\n",
                 "\n",
+                "# Add to sys.path directly inside Jupyter Kernel\n",
+                "PROJECT_DIR = '/kaggle/working/nextgen-transformer'\n",
+                "if PROJECT_DIR not in sys.path:\n",
+                "    sys.path.insert(0, PROJECT_DIR)\n",
+                "\n",
                 "# Patch batchgenerators.dataloading namespace dynamically\n",
                 "import batchgenerators.dataloading\n",
                 "if not hasattr(batchgenerators.dataloading, 'MultiThreadedAugmenter'):\n",
@@ -82,12 +90,7 @@ notebook = {
                 "    except Exception:\n",
                 "        pass\n",
                 "\n",
-                "# Purge any cached modules\n",
-                "for mod in list(sys.modules.keys()):\n",
-                "    if mod.startswith('nnformer'):\n",
-                "        del sys.modules[mod]\n",
-                "\n",
-                "print('Repository freshly cloned and dependencies patched successfully!')"
+                "print('Repository freshly cloned and sys.path configured successfully!')"
             ]
         },
         {
@@ -194,6 +197,7 @@ notebook = {
                 "import subprocess\n",
                 "\n",
                 "print('Starting nnFormer planning and preprocessing...')\n",
+                "PROJECT_DIR = '/kaggle/working/nextgen-transformer'\n",
                 "cmd = [\n",
                 "    sys.executable,\n",
                 "    '-m', 'nnformer.experiment_planning.nnFormer_plan_and_preprocess',\n",
@@ -202,7 +206,7 @@ notebook = {
                 "    '-tf', '2',\n",
                 "    '--verify_dataset_integrity'\n",
                 "]\n",
-                "subprocess.run(cmd, env=os.environ, check=True)\n",
+                "subprocess.run(cmd, env=os.environ, cwd=PROJECT_DIR, check=True)\n",
                 "print('Preprocessing finished successfully!')"
             ]
         },
@@ -214,6 +218,7 @@ notebook = {
             "source": [
                 "# 5. Train nnFormer 3D Swin-Transformer Model\n",
                 "print('Starting nnFormer model training...')\n",
+                "PROJECT_DIR = '/kaggle/working/nextgen-transformer'\n",
                 "cmd = [\n",
                 "    sys.executable,\n",
                 "    '-m', 'nnformer.run.run_training',\n",
@@ -222,7 +227,7 @@ notebook = {
                 "    '1',\n",
                 "    '0'\n",
                 "]\n",
-                "subprocess.run(cmd, env=os.environ, check=True)\n",
+                "subprocess.run(cmd, env=os.environ, cwd=PROJECT_DIR, check=True)\n",
                 "print('nnFormer model training completed!')"
             ]
         },
@@ -236,6 +241,7 @@ notebook = {
                 "input_folder = os.path.join(TASK_DIR, 'imagesTs')\n",
                 "output_folder = os.path.join(TASK_DIR, 'inferTs', 'nnformer_acdc')\n",
                 "os.makedirs(output_folder, exist_ok=True)\n",
+                "PROJECT_DIR = '/kaggle/working/nextgen-transformer'\n",
                 "\n",
                 "cmd = [\n",
                 "    sys.executable,\n",
@@ -247,7 +253,7 @@ notebook = {
                 "    '-tr', 'nnFormerTrainerV2_nnformer_acdc',\n",
                 "    '-chk', 'model_final_checkpoint'\n",
                 "]\n",
-                "subprocess.run(cmd, env=os.environ, check=True)\n",
+                "subprocess.run(cmd, env=os.environ, cwd=PROJECT_DIR, check=True)\n",
                 "print(f'Inference complete! Predictions saved to: {output_folder}')"
             ]
         },
