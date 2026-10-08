@@ -1,3 +1,10 @@
+import torch
+
+def safe_torch_load(file_path, map_location=None):
+    try:
+        return torch.load(file_path, map_location=map_location, weights_only=False)
+    except TypeError:
+        return torch.load(file_path, map_location=map_location)
 #    Copyright 2020 Division of Medical Image Computing, German Cancer Research Center (DKFZ), Heidelberg, Germany
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +25,7 @@ def load_pretrained_weights(network, fname, verbose=False):
     """
     THIS DOES NOT TRANSFER SEGMENTATION HEADS!
     """
-    saved_model = torch.load(fname)
+    saved_model = safe_torch_load(fname)
     pretrained_dict = saved_model['state_dict']
 
     new_state_dict = {}

@@ -1,3 +1,10 @@
+import torch
+
+def safe_torch_load(file_path, map_location=None):
+    try:
+        return torch.load(file_path, map_location=map_location, weights_only=False)
+    except TypeError:
+        return torch.load(file_path, map_location=map_location)
 #    Copyright 2020 Division of Medical Image Computing, German Cancer Research Center (DKFZ), Heidelberg, Germany
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -341,7 +348,7 @@ class NetworkTrainer(object):
         if not self.was_initialized:
             self.initialize(train)
         # saved_model = torch.load(fname, map_location=torch.device('cuda', torch.cuda.current_device()))
-        saved_model = torch.load(fname, map_location=torch.device('cpu'))
+        saved_model = safe_torch_load(fname, map_location=torch.device('cpu'))
         self.load_checkpoint_ram(saved_model, train)
 
     @abstractmethod

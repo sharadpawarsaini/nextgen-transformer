@@ -1,3 +1,10 @@
+import torch
+
+def safe_torch_load(file_path, map_location=None):
+    try:
+        return torch.load(file_path, map_location=map_location, weights_only=False)
+    except TypeError:
+        return torch.load(file_path, map_location=map_location)
 #    Copyright 2020 Division of Medical Image Computing, German Cancer Research Center (DKFZ), Heidelberg, Germany
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -166,7 +173,7 @@ def load_model_and_checkpoint_files(folder, folds=None, mixed_precision=None, ch
     trainer.initialize(False)
     all_best_model_files = [join(i, "%s.model" % checkpoint_name) for i in folds]
     print("using the following model files: ", all_best_model_files)
-    all_params = [torch.load(i, map_location=torch.device('cpu')) for i in all_best_model_files]
+    all_params = [safe_torch_load(i, map_location=torch.device('cpu')) for i in all_best_model_files]
     return trainer, all_params
 
 

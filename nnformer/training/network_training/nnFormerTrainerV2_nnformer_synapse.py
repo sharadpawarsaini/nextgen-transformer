@@ -1,3 +1,10 @@
+import torch
+
+def safe_torch_load(file_path, map_location=None):
+    try:
+        return torch.load(file_path, map_location=map_location, weights_only=False)
+    except TypeError:
+        return torch.load(file_path, map_location=map_location)
 #    Copyright 2020 Division of Medical Image Computing, German Cancer Research Center (DKFZ), Heidelberg, Germany
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -174,7 +181,7 @@ class nnFormerTrainerV2_nnformer_synapse(nnFormerTrainer_synapse):
                                 window_size=self.window_size,
                                 deep_supervision=self.deep_supervision)
         if self.load_pretrain_weight:
-            checkpoint = torch.load('/home/xychen/jsguo/weight/gelunorm_former_skip_global_shift.model', map_location='cpu')
+            checkpoint = safe_torch_load('/home/xychen/jsguo/weight/gelunorm_former_skip_global_shift.model', map_location='cpu')
             self.network.load_state_dict(checkpoint)
             print('I am using the pre_train weight!!')   
         

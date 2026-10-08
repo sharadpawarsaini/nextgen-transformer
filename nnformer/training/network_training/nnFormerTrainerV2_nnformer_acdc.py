@@ -1,3 +1,10 @@
+import torch
+
+def safe_torch_load(file_path, map_location=None):
+    try:
+        return torch.load(file_path, map_location=map_location, weights_only=False)
+    except TypeError:
+        return torch.load(file_path, map_location=map_location)
 #    Copyright 2020 Division of Medical Image Computing, German Cancer Research Center (DKFZ), Heidelberg, Germany
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -182,7 +189,7 @@ class nnFormerTrainerV2_nnformer_acdc(nnFormerTrainer):
         if self.load_pretrain_weight:
             pretrain_weight = os.environ.get('PRETRAIN_WEIGHT', "/home/xychen/jsguo/weight/tumor_pretrain.model")
             if os.path.isfile(pretrain_weight):
-                checkpoint = torch.load(pretrain_weight, map_location='cpu') # acdc and tumor use the same pretrain weight
+                checkpoint = safe_torch_load(pretrain_weight, map_location='cpu') # acdc and tumor use the same pretrain weight
                 ck={}
                 
                 for i in self.network.state_dict():
