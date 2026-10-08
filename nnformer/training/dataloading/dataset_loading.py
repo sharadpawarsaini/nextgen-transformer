@@ -18,7 +18,14 @@ import numpy as np
 try:
     from batchgenerators.dataloading.data_loader import SlimDataLoaderBase
 except ImportError:
-    from batchgenerators.dataloading import SlimDataLoaderBase
+    try:
+        from batchgenerators.dataloading import SlimDataLoaderBase
+    except ImportError:
+        class SlimDataLoaderBase:
+            def __init__(self, data, batch_size, number_of_threads_in_multithreading=1):
+                self._data = data
+                self.batch_size = batch_size
+                self.number_of_threads_in_multithreading = number_of_threads_in_multithreading
 from multiprocessing import Pool
 
 from nnformer.configuration import default_num_threads

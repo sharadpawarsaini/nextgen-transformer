@@ -73,12 +73,21 @@ notebook = {
                 "!pip install --upgrade --force-reinstall -q batchgenerators==0.23 SimpleITK nibabel timm einops scipy matplotlib scikit-learn reportlab medpy\n",
                 "!pip install -e . --no-build-isolation\n",
                 "\n",
+                "# Patch batchgenerators.dataloading namespace dynamically\n",
+                "import batchgenerators.dataloading\n",
+                "if not hasattr(batchgenerators.dataloading, 'MultiThreadedAugmenter'):\n",
+                "    try:\n",
+                "        from batchgenerators.dataloading.multi_threaded_augmenter import MultiThreadedAugmenter\n",
+                "        batchgenerators.dataloading.MultiThreadedAugmenter = MultiThreadedAugmenter\n",
+                "    except Exception:\n",
+                "        pass\n",
+                "\n",
                 "# Purge any cached modules\n",
                 "for mod in list(sys.modules.keys()):\n",
-                "    if mod.startswith('nnformer') or mod.startswith('batchgenerators'):\n",
+                "    if mod.startswith('nnformer'):\n",
                 "        del sys.modules[mod]\n",
                 "\n",
-                "print('Repository freshly cloned and dependencies installed successfully!')"
+                "print('Repository freshly cloned and dependencies patched successfully!')"
             ]
         },
         {

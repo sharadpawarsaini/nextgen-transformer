@@ -15,7 +15,21 @@
 try:
     from batchgenerators.dataloading.multi_threaded_augmenter import MultiThreadedAugmenter
 except ImportError:
-    from batchgenerators.dataloading import MultiThreadedAugmenter
+    try:
+        from batchgenerators.dataloading import MultiThreadedAugmenter
+    except ImportError:
+        try:
+            from batchgenerators.dataloading.single_threaded_augmenter import SingleThreadedAugmenter as MultiThreadedAugmenter
+        except ImportError:
+            class MultiThreadedAugmenter:
+                def __init__(self, dataloader, transform, num_processes=1, num_cached_per_queue=1, seeds=None, pin_memory=False):
+                    self.generator = dataloader
+                    self.transform = transform
+                def __iter__(self):
+                    return self
+                def __next__(self):
+                    item = next(self.generator)
+                    return self.transform(**item) if callable(self.transform) else item
 from batchgenerators.transforms import DataChannelSelectionTransform, SegChannelSelectionTransform, \
     GammaTransform, MirrorTransform, Compose
 from batchgenerators.transforms.color_transforms import BrightnessMultiplicativeTransform, \
