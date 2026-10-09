@@ -1,10 +1,7 @@
 {
     "name": "ACDC",
-    "description": "Automatic Cardiac Diagnosis Challenge Demo",
+    "description": "Automatic Cardiac Diagnosis Challenge (70 Train, 10 Val, 20 Test)",
     "tensorImageSize": "4D",
-    "reference": "https://www.creatis.insa-lyon.fr/Challenge/acdc/",
-    "licence": "see ACDC website",
-    "release": "1.0",
     "modality": {
         "0": "MRI"
     },
@@ -14,8 +11,9 @@
         "2": "Myo",
         "3": "LV"
     },
-    "numTraining": 2,
-    "numTest": 1,
+    "numTraining": 70,
+    "numValidation": 10,
+    "numTest": 20,
     "training": [
         {
             "image": "./imagesTr/patient001.nii.gz",
@@ -24,9 +22,342 @@
         {
             "image": "./imagesTr/patient002.nii.gz",
             "label": "./labelsTr/patient002.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient003.nii.gz",
+            "label": "./labelsTr/patient003.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient004.nii.gz",
+            "label": "./labelsTr/patient004.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient005.nii.gz",
+            "label": "./labelsTr/patient005.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient006.nii.gz",
+            "label": "./labelsTr/patient006.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient007.nii.gz",
+            "label": "./labelsTr/patient007.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient008.nii.gz",
+            "label": "./labelsTr/patient008.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient009.nii.gz",
+            "label": "./labelsTr/patient009.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient010.nii.gz",
+            "label": "./labelsTr/patient010.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient011.nii.gz",
+            "label": "./labelsTr/patient011.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient012.nii.gz",
+            "label": "./labelsTr/patient012.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient013.nii.gz",
+            "label": "./labelsTr/patient013.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient014.nii.gz",
+            "label": "./labelsTr/patient014.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient015.nii.gz",
+            "label": "./labelsTr/patient015.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient016.nii.gz",
+            "label": "./labelsTr/patient016.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient017.nii.gz",
+            "label": "./labelsTr/patient017.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient018.nii.gz",
+            "label": "./labelsTr/patient018.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient019.nii.gz",
+            "label": "./labelsTr/patient019.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient020.nii.gz",
+            "label": "./labelsTr/patient020.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient021.nii.gz",
+            "label": "./labelsTr/patient021.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient022.nii.gz",
+            "label": "./labelsTr/patient022.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient023.nii.gz",
+            "label": "./labelsTr/patient023.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient024.nii.gz",
+            "label": "./labelsTr/patient024.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient025.nii.gz",
+            "label": "./labelsTr/patient025.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient026.nii.gz",
+            "label": "./labelsTr/patient026.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient027.nii.gz",
+            "label": "./labelsTr/patient027.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient028.nii.gz",
+            "label": "./labelsTr/patient028.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient029.nii.gz",
+            "label": "./labelsTr/patient029.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient030.nii.gz",
+            "label": "./labelsTr/patient030.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient031.nii.gz",
+            "label": "./labelsTr/patient031.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient032.nii.gz",
+            "label": "./labelsTr/patient032.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient033.nii.gz",
+            "label": "./labelsTr/patient033.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient034.nii.gz",
+            "label": "./labelsTr/patient034.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient035.nii.gz",
+            "label": "./labelsTr/patient035.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient036.nii.gz",
+            "label": "./labelsTr/patient036.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient037.nii.gz",
+            "label": "./labelsTr/patient037.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient038.nii.gz",
+            "label": "./labelsTr/patient038.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient039.nii.gz",
+            "label": "./labelsTr/patient039.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient040.nii.gz",
+            "label": "./labelsTr/patient040.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient041.nii.gz",
+            "label": "./labelsTr/patient041.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient042.nii.gz",
+            "label": "./labelsTr/patient042.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient043.nii.gz",
+            "label": "./labelsTr/patient043.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient044.nii.gz",
+            "label": "./labelsTr/patient044.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient045.nii.gz",
+            "label": "./labelsTr/patient045.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient046.nii.gz",
+            "label": "./labelsTr/patient046.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient047.nii.gz",
+            "label": "./labelsTr/patient047.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient048.nii.gz",
+            "label": "./labelsTr/patient048.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient049.nii.gz",
+            "label": "./labelsTr/patient049.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient050.nii.gz",
+            "label": "./labelsTr/patient050.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient051.nii.gz",
+            "label": "./labelsTr/patient051.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient052.nii.gz",
+            "label": "./labelsTr/patient052.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient053.nii.gz",
+            "label": "./labelsTr/patient053.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient054.nii.gz",
+            "label": "./labelsTr/patient054.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient055.nii.gz",
+            "label": "./labelsTr/patient055.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient056.nii.gz",
+            "label": "./labelsTr/patient056.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient057.nii.gz",
+            "label": "./labelsTr/patient057.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient058.nii.gz",
+            "label": "./labelsTr/patient058.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient059.nii.gz",
+            "label": "./labelsTr/patient059.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient060.nii.gz",
+            "label": "./labelsTr/patient060.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient061.nii.gz",
+            "label": "./labelsTr/patient061.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient062.nii.gz",
+            "label": "./labelsTr/patient062.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient063.nii.gz",
+            "label": "./labelsTr/patient063.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient064.nii.gz",
+            "label": "./labelsTr/patient064.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient065.nii.gz",
+            "label": "./labelsTr/patient065.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient066.nii.gz",
+            "label": "./labelsTr/patient066.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient067.nii.gz",
+            "label": "./labelsTr/patient067.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient068.nii.gz",
+            "label": "./labelsTr/patient068.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient069.nii.gz",
+            "label": "./labelsTr/patient069.nii.gz"
+        },
+        {
+            "image": "./imagesTr/patient070.nii.gz",
+            "label": "./labelsTr/patient070.nii.gz"
+        }
+    ],
+    "validation": [
+        {
+            "image": "./imagesVal/patient071.nii.gz",
+            "label": "./labelsVal/patient071.nii.gz"
+        },
+        {
+            "image": "./imagesVal/patient072.nii.gz",
+            "label": "./labelsVal/patient072.nii.gz"
+        },
+        {
+            "image": "./imagesVal/patient073.nii.gz",
+            "label": "./labelsVal/patient073.nii.gz"
+        },
+        {
+            "image": "./imagesVal/patient074.nii.gz",
+            "label": "./labelsVal/patient074.nii.gz"
+        },
+        {
+            "image": "./imagesVal/patient075.nii.gz",
+            "label": "./labelsVal/patient075.nii.gz"
+        },
+        {
+            "image": "./imagesVal/patient076.nii.gz",
+            "label": "./labelsVal/patient076.nii.gz"
+        },
+        {
+            "image": "./imagesVal/patient077.nii.gz",
+            "label": "./labelsVal/patient077.nii.gz"
+        },
+        {
+            "image": "./imagesVal/patient078.nii.gz",
+            "label": "./labelsVal/patient078.nii.gz"
+        },
+        {
+            "image": "./imagesVal/patient079.nii.gz",
+            "label": "./labelsVal/patient079.nii.gz"
+        },
+        {
+            "image": "./imagesVal/patient080.nii.gz",
+            "label": "./labelsVal/patient080.nii.gz"
         }
     ],
     "test": [
-        "./imagesTs/patient003.nii.gz"
+        "./imagesTs/patient081.nii.gz",
+        "./imagesTs/patient082.nii.gz",
+        "./imagesTs/patient083.nii.gz",
+        "./imagesTs/patient084.nii.gz",
+        "./imagesTs/patient085.nii.gz",
+        "./imagesTs/patient086.nii.gz",
+        "./imagesTs/patient087.nii.gz",
+        "./imagesTs/patient088.nii.gz",
+        "./imagesTs/patient089.nii.gz",
+        "./imagesTs/patient090.nii.gz",
+        "./imagesTs/patient091.nii.gz",
+        "./imagesTs/patient092.nii.gz",
+        "./imagesTs/patient093.nii.gz",
+        "./imagesTs/patient094.nii.gz",
+        "./imagesTs/patient095.nii.gz",
+        "./imagesTs/patient096.nii.gz",
+        "./imagesTs/patient097.nii.gz",
+        "./imagesTs/patient098.nii.gz",
+        "./imagesTs/patient099.nii.gz",
+        "./imagesTs/patient100.nii.gz"
     ]
 }

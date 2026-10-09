@@ -1,0 +1,109 @@
+{
+    "name": "Synapse",
+    "description": "MICCAI Multi-Atlas 30 Abdominal CT Cases (18 Train, 12 Test)",
+    "tensorImageSize": "4D",
+    "modality": {
+        "0": "CT"
+    },
+    "labels": {
+        "0": "background",
+        "1": "aorta",
+        "2": "gallbladder",
+        "3": "spleen",
+        "4": "left_kidney",
+        "5": "right_kidney",
+        "6": "liver",
+        "7": "pancreas",
+        "8": "stomach"
+    },
+    "numTraining": 18,
+    "numTest": 12,
+    "training": [
+        {
+            "image": "./imagesTr/case0001.nii.gz",
+            "label": "./labelsTr/case0001.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0002.nii.gz",
+            "label": "./labelsTr/case0002.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0003.nii.gz",
+            "label": "./labelsTr/case0003.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0004.nii.gz",
+            "label": "./labelsTr/case0004.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0005.nii.gz",
+            "label": "./labelsTr/case0005.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0006.nii.gz",
+            "label": "./labelsTr/case0006.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0007.nii.gz",
+            "label": "./labelsTr/case0007.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0008.nii.gz",
+            "label": "./labelsTr/case0008.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0009.nii.gz",
+            "label": "./labelsTr/case0009.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0010.nii.gz",
+            "label": "./labelsTr/case0010.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0011.nii.gz",
+            "label": "./labelsTr/case0011.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0012.nii.gz",
+            "label": "./labelsTr/case0012.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0013.nii.gz",
+            "label": "./labelsTr/case0013.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0014.nii.gz",
+            "label": "./labelsTr/case0014.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0015.nii.gz",
+            "label": "./labelsTr/case0015.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0016.nii.gz",
+            "label": "./labelsTr/case0016.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0017.nii.gz",
+            "label": "./labelsTr/case0017.nii.gz"
+        },
+        {
+            "image": "./imagesTr/case0018.nii.gz",
+            "label": "./labelsTr/case0018.nii.gz"
+        }
+    ],
+    "test": [
+        "./imagesTs/case0019.nii.gz",
+        "./imagesTs/case0020.nii.gz",
+        "./imagesTs/case0021.nii.gz",
+        "./imagesTs/case0022.nii.gz",
+        "./imagesTs/case0023.nii.gz",
+        "./imagesTs/case0024.nii.gz",
+        "./imagesTs/case0025.nii.gz",
+        "./imagesTs/case0026.nii.gz",
+        "./imagesTs/case0027.nii.gz",
+        "./imagesTs/case0028.nii.gz",
+        "./imagesTs/case0029.nii.gz",
+        "./imagesTs/case0030.nii.gz"
+    ]
+}
