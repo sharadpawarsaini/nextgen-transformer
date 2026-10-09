@@ -27,9 +27,9 @@ os.environ["nnFormer_preprocessed"] = PREPROCESSED_DIR
 os.environ["RESULTS_FOLDER"] = RESULTS_DIR
 os.environ["nnFormer_def_n_proc"] = "2"
 os.environ["nnFormer_n_proc_DA"] = "1"
-os.environ["MAX_NUM_EPOCHS"] = "100"
-os.environ["NUM_BATCHES_PER_EPOCH"] = "10"
-os.environ["NUM_VAL_BATCHES_PER_EPOCH"] = "5"
+os.environ["MAX_NUM_EPOCHS"] = "250"
+os.environ["NUM_BATCHES_PER_EPOCH"] = "250"
+os.environ["NUM_VAL_BATCHES_PER_EPOCH"] = "50"
 
 TASK_ID = 1
 TASK_NAME = f"Task{TASK_ID:03d}_ACDC"
