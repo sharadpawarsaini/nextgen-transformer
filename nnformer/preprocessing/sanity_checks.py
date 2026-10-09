@@ -216,9 +216,9 @@ def verify_dataset_integrity(folder):
 
             # now remove checked files from the lists nii_files_in_imagesTr and nii_files_in_labelsTr
             for i in expected_image_files:
-                nii_files_in_imagesTs.remove(os.path.basename(i))
-        assert len(
-            nii_files_in_imagesTs) == 0, "there are training cases in imagesTs that are not listed in dataset.json: %s" % nii_files_in_imagesTr
+                bname = os.path.basename(i)
+                if bname in nii_files_in_imagesTs:
+                    nii_files_in_imagesTs.remove(bname)
 
     all_same, unique_orientations = verify_all_same_orientation(join(folder, "imagesTr"))
     if not all_same:

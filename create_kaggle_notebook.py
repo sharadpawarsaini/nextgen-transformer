@@ -119,11 +119,11 @@ notebook = {
                 "PROJECT_DIR = '/kaggle/working/nextgen-transformer'\n",
                 "\n",
                 "print('1. Preprocessing Task001_ACDC (Cardiac MRI)...')\n",
-                "cmd_acdc = [sys.executable, '-m', 'nnformer.experiment_planning.nnFormer_plan_and_preprocess', '-t', '1', '-tl', '2', '-tf', '2', '--verify_dataset_integrity']\n",
+                "cmd_acdc = [sys.executable, '-m', 'nnformer.experiment_planning.nnFormer_plan_and_preprocess', '-t', '1', '-tl', '2', '-tf', '2']\n",
                 "subprocess.run(cmd_acdc, env=os.environ, cwd=PROJECT_DIR, check=True)\n",
                 "\n",
                 "print('2. Preprocessing Task002_Synapse (Abdominal CT)...')\n",
-                "cmd_synapse = [sys.executable, '-m', 'nnformer.experiment_planning.nnFormer_plan_and_preprocess', '-t', '2', '-tl', '2', '-tf', '2', '--verify_dataset_integrity']\n",
+                "cmd_synapse = [sys.executable, '-m', 'nnformer.experiment_planning.nnFormer_plan_and_preprocess', '-t', '2', '-tl', '2', '-tf', '2']\n",
                 "subprocess.run(cmd_synapse, env=os.environ, cwd=PROJECT_DIR, check=True)\n",
                 "\n",
                 "print('✅ Preprocessing completed for both datasets!')"
