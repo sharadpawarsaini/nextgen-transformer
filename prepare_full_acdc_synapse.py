@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import shutil
 import numpy as np
 import nibabel as nib
 
@@ -54,6 +55,8 @@ def create_acdc_nifti(image_path, label_path, shape=(14, 160, 160)):
 def setup_acdc_dataset():
     task_name = "Task001_ACDC"
     task_dir = os.path.join(RAW_DATA, task_name)
+    if os.path.exists(task_dir):
+        shutil.rmtree(task_dir)
     for folder in ["imagesTr", "labelsTr", "imagesVal", "labelsVal", "imagesTs", "labelsTs"]:
         os.makedirs(os.path.join(task_dir, folder), exist_ok=True)
 
@@ -146,6 +149,8 @@ def create_synapse_nifti(image_path, label_path, shape=(20, 128, 128)):
 def setup_synapse_dataset():
     task_name = "Task002_Synapse"
     task_dir = os.path.join(RAW_DATA, task_name)
+    if os.path.exists(task_dir):
+        shutil.rmtree(task_dir)
     for folder in ["imagesTr", "labelsTr", "imagesTs", "labelsTs"]:
         os.makedirs(os.path.join(task_dir, folder), exist_ok=True)
 
