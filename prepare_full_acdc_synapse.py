@@ -5,8 +5,13 @@ import numpy as np
 import nibabel as nib
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATASET_DIR = os.path.join(PROJECT_DIR, "DATASET")
-RAW_BASE = os.path.join(DATASET_DIR, "nnFormer_raw")
+
+if "nnFormer_raw_data_base" in os.environ:
+    RAW_BASE = os.environ["nnFormer_raw_data_base"]
+else:
+    DATASET_DIR = os.path.join(PROJECT_DIR, "DATASET")
+    RAW_BASE = os.path.join(DATASET_DIR, "nnFormer_raw")
+
 RAW_DATA = os.path.join(RAW_BASE, "nnFormer_raw_data")
 
 # ---------------------------------------------------------
